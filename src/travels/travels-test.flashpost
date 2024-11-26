@@ -1,0 +1,45 @@
+{
+  "tests": [
+    {
+      "name": "Get all travels",
+      "method": "GET",
+"url": "http://localhost:3000/travels"
+    },
+    {
+      "name": "Create a new travel",
+      "method": "POST",
+"url": "http://localhost:3000/travels",
+      "body": {
+        "destinationCountry": "Hungary",
+        "destinationCity": "Budapest",
+        "description": "A beautiful city with rich history and culture.",
+"image": "https://example.com/budapest.jpg",
+        "price": 50000
+      }
+    },
+    {
+      "name": "Get travel by ID",
+      "method": "GET",
+"url": "http://localhost:3000/travels/1"
+    },
+    {
+      "name": "Update travel by ID",
+      "method": "PATCH",
+"url": "http://localhost:3000/travels/1",
+      "body": {
+        "price": 45000,
+        "description": "Updated description with new details."
+      }
+    },
+    {
+      "name": "Delete travel by ID",
+      "method": "DELETE",
+"url": "http://localhost:3000/travels/1"
+    },
+    {
+      "name": "Sort travels by price descending",
+      "method": "GET",
+"url": "http://localhost:3000/travels?sort=price_desc"
+    }
+  ]
+}

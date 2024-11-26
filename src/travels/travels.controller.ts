@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, ParseIntPipe } from '@nestjs/common';
-import {TravelsService} from './travels.service'
+import { Controller, Get, Post, Patch, Delete, Param, Body, Query, ParseIntPipe } from '@nestjs/common';
+import { TravelsService } from './travels.service';
 import { Travels } from './travels.entity';
  
 @Controller('travels')
@@ -7,8 +7,8 @@ export class TravelsController {
   constructor(private readonly travelsService: TravelsService) {}
  
   @Get()
-  findAll() {
-    return this.travelsService.findAll();
+  findAll(@Query('sort') sort?: string) {
+    return this.travelsService.findAll(sort);
   }
  
   @Get(':id')
@@ -17,17 +17,17 @@ export class TravelsController {
   }
  
   @Post()
-  create(@Body() travel: Travels) {
+  create(@Body() travel: Omit<Travels, 'id' | 'discount'>) {
     return this.travelsService.create(travel);
   }
  
-  @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() travel: Partial<Travels>) {
-    return this.travelsService.update(id, travel);
+  @Patch(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() updates: Partial<Omit<Travels, 'id'>>) {
+    return this.travelsService.update(id, updates);
   }
  
   @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     this.travelsService.delete(id);
     return { message: 'Travel deleted successfully' };
   }
