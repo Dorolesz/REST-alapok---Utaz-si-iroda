@@ -1,27 +1,17 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Konyv } from './konyv';
-
+import { TravelsService } from './travels/travels.service';
+import { Travels } from './travels/travels.entity';
+ 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  @Render('index')
-  getHello() {
-    return {
-      message: this.appService.getHello()
-    };
+  constructor(
+    private readonly appService: AppService,
+    private readonly travelsService: TravelsService
+  ) {}
+ 
+  @Get('/travels')
+  getTravels(): Travels[] {
+    return this.travelsService.findAll();
   }
-
-  konyvek: Konyv[] = [
-    {
-      id: 1,
-      title: 'x',
-      author: 'x',
-      isbn: 'x',
-      publishYear: 1,
-      reserved: true,
-    }
-  ]
 }
